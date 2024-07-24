@@ -1,0 +1,23 @@
+{
+  "name": "just_another_todo",
+  "version": "1.0.0",
+  "description": "Just another to-do app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd backend && node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/feliksfortuna/just_another_todo.git"
+  },
+  "author": "Feliks Fortuna",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/feliksfortuna/just_another_todo/issues"
+  },
+  "homepage": "https://github.com/feliksfortuna/just_another_todo#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
