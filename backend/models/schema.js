@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
+// declarations of the schemas
 const userSchema = new mongoose.Schema({});
+const todoItemSchema = new mongoose.Schema({});
 
 // schemas
 userSchema.add({
@@ -29,6 +31,33 @@ userSchema.add({
     }
 });
 
+todoItemSchema.add({
+    _id: mongoose.Schema.Types.ObjectId,
+    title: {
+        type: String,
+        required: [true, 'Title is required'],
+    },
+    description: String,
+    dueDate: {
+        type: Date,
+        required: [true, 'Due date is required'],
+    },
+    priority: {
+        type: String,
+        enum: ['low', 'medium', 'high'],
+        required: [true, 'Priority is required'],
+    },
+    completed: {
+        type: Boolean,
+        default: false,
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: [true, 'User is required'],
+    },
+});
+
 // methods
 userSchema.methods.setPassword = function(password) {
     this.salt = crypto.randomBytes(16).toString('hex');
@@ -53,6 +82,9 @@ userSchema.methods.generateJwt = function() {
         exp: Number.parseInt(expiry.getTime() / 1000),
     }, process.env.JWT_SECRET);
 }
+
+// indexings for optimization
+todoItemSchema.index({ user: 1 });
 
 // export the schema
 module.exports = mongoose.model('User', userSchema, 'Users');
