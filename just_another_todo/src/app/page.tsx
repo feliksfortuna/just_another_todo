@@ -1,6 +1,14 @@
+"use client"
+
 import Image from "next/image";
+import LoginModal from "@/components/loginModal";
+import { use, useState } from "react";
 
 export default function Home() {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
+  const handleOpenModal = () => setIsLoginModalOpen(true);
+  const handleCloseModal = () => setIsLoginModalOpen(false);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -56,6 +64,9 @@ export default function Home() {
             Find in-depth information about Next.js features and API.
           </p>
         </a>
+
+        <button type="button" onClick={handleOpenModal} className="mb-4 px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-700">Open Login</button>
+        <LoginModal isOpen={isLoginModalOpen} onClose={handleCloseModal} />
 
         <a
           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
