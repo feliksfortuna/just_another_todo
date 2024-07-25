@@ -37,15 +37,18 @@ todoItemSchema.add({
         type: String,
         required: [true, 'Title is required'],
     },
-    description: String,
+    description: {
+        type: String,
+        required: [false],
+    },
     dueDate: {
         type: Date,
-        required: [true, 'Due date is required'],
+        required: [false],
     },
     priority: {
         type: String,
         enum: ['low', 'medium', 'high'],
-        required: [true, 'Priority is required'],
+        required: [false],
     },
     completed: {
         type: Boolean,
