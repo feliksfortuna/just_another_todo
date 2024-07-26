@@ -1,0 +1,19 @@
+.center-button-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh; /* Full viewport height */
+}
+
+.center-button {
+	padding: 10px 20px;
+	background-color: #007bff; /* Blue background */
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.center-button:hover {
+	background-color: #0056b3; /* Darker blue on hover */
+}
