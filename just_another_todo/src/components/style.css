@@ -1,0 +1,48 @@
+.modalStyle {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	color: black;
+	padding: 10px;
+	z-index: 1000;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width: 60%;
+}
+
+@media (prefers-color-scheme: dark) {
+    .modalStyle {
+        background-color: #333;
+        color: white;
+        border: 1px solid #555;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    background-color: cadetblue;
+    color: white;
+    width: 100%; /* Ensure it takes the full width of the modal */
+}
+
+.modalHeader button {
+    cursor: pointer;
+    padding: 10px;
+    flex: 1; /* Ensure each tab takes equal space */
+    text-align: center; /* Center the text within each tab */
+    background: none; /* Remove default button background */
+    border: none; /* Remove default button border */
+    color: inherit; /* Inherit text color from parent */
+}
+
+.modalHeader .active {
+    font-weight: bold;
+    background-color: #86b5b7; /* Lighter shade of cadetblue */
+}
+
