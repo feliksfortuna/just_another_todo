@@ -44,7 +44,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                             setIsLogin(true);
                         }
                     }}
-                    className={isLogin ? 'active' : ''}
+                    className={`loginButton ${isLogin ? 'active' : ''}`}
                     type="button" // Add explicit type prop for the button element
                 >
                     Login
@@ -61,7 +61,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                             setIsLogin(false);
                         }
                     }}
-                    className={!isLogin ? 'active' : ''}
+                    className={`signupButton ${!isLogin ? 'active' : ''}`}
                     type="button" // Add explicit type prop for the button element
                 >
                     Signup

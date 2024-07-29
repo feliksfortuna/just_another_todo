@@ -1,16 +1,16 @@
 .modalStyle {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: white;
-	color: black;
-	padding: 10px;
-	z-index: 1000;
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	width: 60%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    color: black;
+    padding: 10px;
+    z-index: 1000;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 60%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,7 +28,14 @@
     margin-bottom: 20px;
     background-color: cadetblue;
     color: white;
-    width: 100%; /* Ensure it takes the full width of the modal */
+    width: calc(100% + 20px); /* Extend beyond the padding of the modal */
+    margin-left: -10px; /* Adjust for left padding */
+    margin-right: -10px; /* Adjust for right padding */
+    margin-top: -10px; /* Adjust for top padding */
+    padding-left: 10px; /* Add padding to match the modal */
+    padding-right: 10px; /* Add padding to match the modal */
+    padding-top: 10px; /* Add padding to match the modal */
+    border-radius: 8px 8px 0 0; /* Round the top corners */
 }
 
 .modalHeader button {
@@ -39,6 +46,21 @@
     background: none; /* Remove default button background */
     border: none; /* Remove default button border */
     color: inherit; /* Inherit text color from parent */
+    width: calc(100% + 20px); /* Extend beyond the padding of the modal */
+    margin-left: -10px; /* Adjust for left padding */
+    margin-right: -10px; /* Adjust for right padding */
+    margin-top: -10px; /* Adjust for top padding */
+    padding-left: 10px; /* Add padding to match the modal */
+    padding-right: 10px; /* Add padding to match the modal */
+    padding-top: 10px; /* Add padding to match the modal */
+}
+
+.loginButton.active {
+    border-radius: 8px 0 0 0; /* Round the top-left corner */
+}
+
+.signupButton.active {
+    border-radius: 0 8px 0 0; /* Round the top-right corner */
 }
 
 .modalHeader .active {
