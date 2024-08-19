@@ -10,7 +10,7 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 60%;
+    width: 40%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,12 +47,18 @@
     border: none; /* Remove default button border */
     color: inherit; /* Inherit text color from parent */
     width: calc(100% + 20px); /* Extend beyond the padding of the modal */
-    margin-left: -10px; /* Adjust for left padding */
-    margin-right: -10px; /* Adjust for right padding */
     margin-top: -10px; /* Adjust for top padding */
     padding-left: 10px; /* Add padding to match the modal */
     padding-right: 10px; /* Add padding to match the modal */
     padding-top: 10px; /* Add padding to match the modal */
+}
+
+.loginButton {
+    margin-left: -10px; /* Adjust for left padding */
+}
+
+.signupButton {
+    margin-right: -10px; /* Adjust for right padding */
 }
 
 .loginButton.active {
@@ -68,3 +74,34 @@
     background-color: #86b5b7; /* Lighter shade of cadetblue */
 }
 
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#email {
+    padding-left: 40px;
+    background-image: url('../../../icons/email-9-svgrepo-com.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: 10px center;
+}
+
+#password {
+    padding-left: 40px;
+    background-image: url('../../../icons/lock-password-svgrepo-com.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: 10px center;
+}
+
+#confirmPassword {
+    padding-left: 40px;
+    background-image: url('../../../icons/lock-password-unlocked-svgrepo-com.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: 10px center;
+}

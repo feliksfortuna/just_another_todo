@@ -1,37 +1,39 @@
 import { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './style.css';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 type LoginModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
+    isOpen: boolean;
+    onClose: () => void;
 };
 
 const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLogin, setIsLogin] = useState(true);
     const [windowWidth, setWindowWidth] = useState(0);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-        const handleResize = () => setWindowWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+            const handleResize = () => setWindowWidth(window.innerWidth);
+            window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
         }
     }, []);
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        console.log('Login Attempt:', username, password);
-        // Here you would usually send the username and password to the server
+        console.log('Login Attempt:', email, password);
+        // Here you would usually send the email and password to the server
         onClose(); // Close the modal on submit
     };
 
     if (!isOpen) return null;
 
     return (
-        <div className='modalStyle'>
-            <div className='modalHeader'>
+        <div className="modalStyle">
+            <div className="modalHeader">
                 <button
                     onClick={() => setIsLogin(true)}
                     onKeyUp={(e) => {
@@ -69,29 +71,29 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
             </div>
 
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="username">Username:</label>
+                <div className="email">
                     <input
-                        id="username"
+                        id="email"
+                        placeholder="Email"
                         type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
+                <div className="password">
                     <input
                         id="password"
+                        placeholder="Password"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 {!isLogin && (
-                    <div>
-                        <label htmlFor="confirmPassword">Confirm Password:</label>
+                    <div className="confirmPassword">
                         <input
                             id="confirmPassword"
+                            placeholder="Confirm Password"
                             type="password"
                         />
                     </div>
