@@ -105,3 +105,35 @@ input {
     background-size: 20px;
     background-position: 10px center;
 }
+
+.submitButton {
+    background-color: #86b5b7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+    height: 90%;
+}
+
+.submitButton:hover {
+    background-color: cadetblue;
+}
+
+.submitForgotContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px; /* Add some margin if needed */
+}
+
+.forgotPasswordLink {
+    color: #007bff; /* Example color */
+    text-decoration: none; /* Remove underline */
+    font-size: 14px; /* Example font size */
+}
+
+.forgotPasswordLink:hover {
+    text-decoration: underline; /* Add underline on hover */
+}

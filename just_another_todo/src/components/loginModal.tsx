@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.css';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
@@ -32,8 +32,8 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     if (!isOpen) return null;
 
     return (
-        <div className="modalStyle">
-            <div className="modalHeader">
+        <div className='modalStyle'>
+            <div className='modalHeader'>
                 <button
                     onClick={() => setIsLogin(true)}
                     onKeyUp={(e) => {
@@ -47,7 +47,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                         }
                     }}
                     className={`loginButton ${isLogin ? 'active' : ''}`}
-                    type="button" // Add explicit type prop for the button element
+                    type='button' // Add explicit type prop for the button element
                 >
                     Login
                 </button>
@@ -64,41 +64,50 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                         }
                     }}
                     className={`signupButton ${!isLogin ? 'active' : ''}`}
-                    type="button" // Add explicit type prop for the button element
+                    type='button' // Add explicit type prop for the button element
                 >
                     Signup
                 </button>
             </div>
 
             <form onSubmit={handleSubmit}>
-                <div className="email">
+                <div className='email'>
                     <input
-                        id="email"
-                        placeholder="Email"
-                        type="text"
+                        id='email'
+                        placeholder='Email'
+                        type='text'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <div className="password">
+                <div className='password'>
                     <input
-                        id="password"
-                        placeholder="Password"
-                        type="password"
+                        id='password'
+                        placeholder='Password'
+                        type='password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 {!isLogin && (
-                    <div className="confirmPassword">
+                    <div className='confirmPassword'>
                         <input
-                            id="confirmPassword"
-                            placeholder="Confirm Password"
-                            type="password"
+                            id='confirmPassword'
+                            placeholder='Confirm Password'
+                            type='password'
                         />
                     </div>
                 )}
-                <button type="submit">{isLogin ? 'Login' : 'Signup'}</button>
+                <div className='submitForgotContainer'>
+                    <div className='forgotPassword'>
+                        <a className='forgotPasswordLink' href='#'>Forgot password?</a>
+                    </div>
+                    <div className='submitDiv'>
+                        <button className='submitButton' type='submit'>
+                            {isLogin ? 'Login' : 'Signup'}
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     );
