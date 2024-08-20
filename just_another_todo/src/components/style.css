@@ -106,6 +106,14 @@ input {
     background-position: 10px center;
 }
 
+#name, #surname {
+    padding-left: 40px;
+    background-image: url('../../../icons/user-svgrepo-com.svg');
+    background-repeat: no-repeat;
+    background-size: 22px;
+    background-position: 10px center;
+}
+
 .submitButton {
     background-color: #86b5b7;
     color: white;

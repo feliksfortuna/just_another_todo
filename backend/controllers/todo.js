@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
 const TodoItem = mongoose.model('TodoItem');
 
 // get all todo items by user

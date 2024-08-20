@@ -8,7 +8,6 @@ const todoItemSchema = new mongoose.Schema({});
 
 // schemas
 userSchema.add({
-    _id: mongoose.Schema.Types.ObjectId,
     email: {
         type: String,
         unique: true,
@@ -32,7 +31,6 @@ userSchema.add({
 });
 
 todoItemSchema.add({
-    _id: mongoose.Schema.Types.ObjectId,
     title: {
         type: String,
         required: [true, 'Title is required'],
@@ -91,3 +89,4 @@ todoItemSchema.index({ user: 1 });
 
 // export the schema
 module.exports = mongoose.model('User', userSchema, 'Users');
+module.exports = mongoose.model('TodoItem', todoItemSchema, 'TodoItems');

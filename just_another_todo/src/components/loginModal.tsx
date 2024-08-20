@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.css';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { register, login } from '@/apiService';
+import { on } from 'events';
 
 type LoginModalProps = {
     isOpen: boolean;
@@ -11,8 +11,11 @@ type LoginModalProps = {
 const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
     const [isLogin, setIsLogin] = useState(true);
     const [windowWidth, setWindowWidth] = useState(0);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -22,11 +25,20 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
         }
     }, []);
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log('Login Attempt:', email, password);
-        // Here you would usually send the email and password to the server
-        onClose(); // Close the modal on submit
+        try {
+            if (isLogin) {
+                const data = await login(email, password);
+                console.log(data);
+            } else {
+                const data = await register(email, password, name, surname);
+                console.log(data);
+            }
+            onClose();
+        } catch (error) {
+            setError((error as Error).message);
+        }
     };
 
     if (!isOpen) return null;
@@ -71,6 +83,28 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
             </div>
 
             <form onSubmit={handleSubmit}>
+                {!isLogin && (
+                    <div className='name'>
+                        <input
+                            id='name'
+                            placeholder='Name'
+                            type='text'
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                    </div>
+                )}
+                {!isLogin && (
+                    <div className='surname'>
+                        <input
+                            id='surname'
+                            placeholder='Surname'
+                            type='text'
+                            value={surname}
+                            onChange={(e) => setSurname(e.target.value)}
+                        />
+                    </div>
+                )}
                 <div className='email'>
                     <input
                         id='email'
@@ -99,9 +133,11 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                     </div>
                 )}
                 <div className='submitForgotContainer'>
-                    <div className='forgotPassword'>
-                        <a className='forgotPasswordLink' href='#'>Forgot password?</a>
-                    </div>
+                    {isLogin && (
+                        <div className='forgotPassword'>
+                            <a className='forgotPasswordLink' href='#'>Forgot password?</a>
+                        </div>
+                    )}
                     <div className='submitDiv'>
                         <button className='submitButton' type='submit'>
                             {isLogin ? 'Login' : 'Signup'}

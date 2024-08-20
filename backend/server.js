@@ -2,7 +2,6 @@ require('dotenv').config({path: '../.env'});
 
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 
@@ -11,16 +10,18 @@ require('./config/passport');
 
 const apiRouter = require('./routes/api');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const app = express();
 
 app.use(cors());
 
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: false }));
+
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 app.use(passport.initialize());
-
-app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api', apiRouter);
 
