@@ -14,7 +14,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
     const [error, setError] = useState('');
     const modalRef = useRef<HTMLDivElement>(null);
@@ -35,6 +35,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
         };
 
         document.addEventListener('mousedown', handleClickOutside);
+        setIsLogin(false);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };

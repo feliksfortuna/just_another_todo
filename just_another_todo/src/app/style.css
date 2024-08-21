@@ -17,3 +17,10 @@
 .center-button:hover {
 	background-color: #0056b3; /* Darker blue on hover */
 }
+
+.welcome-page {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-image: url('../../public/Animated\ Shape.svg');
+}
