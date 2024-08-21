@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './style.css';
-import { register, login } from '@/apiService';
-import { on } from 'events';
+import axios from 'axios';
+import config from '../../config';
 
 type LoginModalProps = {
     isOpen: boolean;
@@ -11,11 +11,13 @@ type LoginModalProps = {
 const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [isLogin, setIsLogin] = useState(true);
     const [windowWidth, setWindowWidth] = useState(0);
     const [error, setError] = useState('');
+    const modalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -25,58 +27,135 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
         }
     }, []);
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+                onClose();
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [onClose]);
+
+    const resetForm = () => {
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setName('');
+        setSurname('');
+        setError('');
+    }
+
+    const login = async (email: string, password: string) => {
+        try {
+            const response = await axios.post(`${config.apiURL}/login`, {
+                email,
+                password,
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    const register = async (email: string, password: string, name: string, surname: string) => {
+        try {
+            const response = await axios.post(`${config.apiURL}/register`, {
+                email,
+                password,
+                name,
+                surname,
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+        if (!isLogin && password !== confirmPassword) {
+            setError('Passwords do not match');
+            return;
+        }
+
+        if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+            setError('Email is not valid');
+            return;
+        }
+
         try {
             if (isLogin) {
                 const data = await login(email, password);
-                console.log(data);
             } else {
                 const data = await register(email, password, name, surname);
-                console.log(data);
             }
             onClose();
-        } catch (error) {
-            setError((error as Error).message);
+        } catch (error: any) {
+            console.log(error);
+            setError(error.response?.data.message || 'An error occurred');
+        }
+    };
+
+    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setConfirmPassword(value);
+        if (password !== value) {
+            setError('Passwords do not match');
+        } else {
+            setError('');
         }
     };
 
     if (!isOpen) return null;
 
     return (
-        <div className='modalStyle'>
+        <div className='modalStyle' ref={modalRef}>
             <div className='modalHeader'>
                 <button
-                    onClick={() => setIsLogin(true)}
+                    onClick={() => {
+                        setIsLogin(true);
+                        resetForm();
+                    }}
                     onKeyUp={(e) => {
                         if (e.key === 'Enter') {
                             setIsLogin(true);
+                            resetForm();
                         }
                     }}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             setIsLogin(true);
+                            resetForm();
                         }
                     }}
                     className={`loginButton ${isLogin ? 'active' : ''}`}
-                    type='button' // Add explicit type prop for the button element
+                    type='button'
                 >
                     Login
                 </button>
                 <button
-                    onClick={() => setIsLogin(false)}
+                    onClick={() => {
+                        setIsLogin(false);
+                        resetForm();
+                    }}
                     onKeyUp={(e) => {
                         if (e.key === 'Enter') {
                             setIsLogin(false);
+                            resetForm();
                         }
                     }}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             setIsLogin(false);
+                            resetForm();
                         }
                     }}
                     className={`signupButton ${!isLogin ? 'active' : ''}`}
-                    type='button' // Add explicit type prop for the button element
+                    type='button'
                 >
                     Signup
                 </button>
@@ -129,9 +208,12 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                             id='confirmPassword'
                             placeholder='Confirm Password'
                             type='password'
+                            value={confirmPassword}
+                            onChange={handleConfirmPasswordChange}
                         />
                     </div>
                 )}
+                {error && <div className='error'>{error}</div>}
                 <div className='submitForgotContainer'>
                     {isLogin && (
                         <div className='forgotPassword'>
