@@ -1,26 +1,55 @@
 .center-button-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh; /* Full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin-top: 80px;
 }
 
 .center-button {
-	padding: 10px 20px;
-	background-color: #007bff; /* Blue background */
-	color: white;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
+    padding: 10px 20px;
+    background-color: #49dacb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .center-button:hover {
-	background-color: #0056b3; /* Darker blue on hover */
+    background-color: #5bc1c4;
 }
 
 .welcome-page {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background-image: url('../../public/Animated\ Shape.svg');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    background-image: url('../../public/Animated\ Shape.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+}
+
+.welcome-page-title {
+    font-size: 3rem;
+    color: white;
+}
+
+.welcome-page-text {
+    margin-top: 80px;
+    font-size: 1.2rem;
+    color: white;
+    width: 70%;
+}
+
+.logo-container {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    padding: 10px;
+}
+
+.logo-image {
+    filter: contrast(200%);
 }
