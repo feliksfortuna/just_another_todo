@@ -29,7 +29,10 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            if (
+                modalRef.current &&
+                !modalRef.current.contains(event.target as Node)
+            ) {
                 onClose();
             }
         };
@@ -48,7 +51,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
         setName('');
         setSurname('');
         setError('');
-    }
+    };
 
     const login = async (email: string, password: string) => {
         try {
@@ -60,9 +63,14 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
         } catch (error) {
             throw error;
         }
-    }
+    };
 
-    const register = async (email: string, password: string, name: string, surname: string) => {
+    const register = async (
+        email: string,
+        password: string,
+        name: string,
+        surname: string
+    ) => {
         try {
             const response = await axios.post(`${config.apiURL}/register`, {
                 email,
@@ -74,7 +82,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
         } catch (error) {
             throw error;
         }
-    }
+    };
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -90,18 +98,19 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
         try {
             if (isLogin) {
-                const data = await login(email, password);
+                await login(email, password);
             } else {
-                const data = await register(email, password, name, surname);
+                await register(email, password, name, surname);
             }
             onClose();
         } catch (error: any) {
-            console.log(error);
             setError(error.response?.data.message || 'An error occurred');
         }
     };
 
-    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleConfirmPasswordChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const value = e.target.value;
         setConfirmPassword(value);
         if (password !== value) {
@@ -114,8 +123,8 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     if (!isOpen) return null;
 
     return (
-        <div className='modalStyle' ref={modalRef}>
-            <div className='modalHeader'>
+        <div className="modalStyle" ref={modalRef}>
+            <div className="modalHeader">
                 <button
                     onClick={() => {
                         setIsLogin(true);
@@ -134,7 +143,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                         }
                     }}
                     className={`loginButton ${isLogin ? 'active' : ''}`}
-                    type='button'
+                    type="button"
                 >
                     Login
                 </button>
@@ -156,7 +165,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                         }
                     }}
                     className={`signupButton ${!isLogin ? 'active' : ''}`}
-                    type='button'
+                    type="button"
                 >
                     Signup
                 </button>
@@ -164,65 +173,67 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
             <form onSubmit={handleSubmit}>
                 {!isLogin && (
-                    <div className='name'>
+                    <div className="name">
                         <input
-                            id='name'
-                            placeholder='Name'
-                            type='text'
+                            id="name"
+                            placeholder="Name"
+                            type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
                     </div>
                 )}
                 {!isLogin && (
-                    <div className='surname'>
+                    <div className="surname">
                         <input
-                            id='surname'
-                            placeholder='Surname'
-                            type='text'
+                            id="surname"
+                            placeholder="Surname"
+                            type="text"
                             value={surname}
                             onChange={(e) => setSurname(e.target.value)}
                         />
                     </div>
                 )}
-                <div className='email'>
+                <div className="email">
                     <input
-                        id='email'
-                        placeholder='Email'
-                        type='text'
+                        id="email"
+                        placeholder="Email"
+                        type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <div className='password'>
+                <div className="password">
                     <input
-                        id='password'
-                        placeholder='Password'
-                        type='password'
+                        id="password"
+                        placeholder="Password"
+                        type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 {!isLogin && (
-                    <div className='confirmPassword'>
+                    <div className="confirmPassword">
                         <input
-                            id='confirmPassword'
-                            placeholder='Confirm Password'
-                            type='password'
+                            id="confirmPassword"
+                            placeholder="Confirm Password"
+                            type="password"
                             value={confirmPassword}
                             onChange={handleConfirmPasswordChange}
                         />
                     </div>
                 )}
-                {error && <div className='error'>{error}</div>}
-                <div className='submitForgotContainer'>
+                {error && <div className="error">{error}</div>}
+                <div className="submitForgotContainer">
                     {isLogin && (
-                        <div className='forgotPassword'>
-                            <a className='forgotPasswordLink' href='#'>Forgot password?</a>
+                        <div className="forgotPassword">
+                            <a className="forgotPasswordLink" href="#">
+                                Forgot password?
+                            </a>
                         </div>
                     )}
-                    <div className='submitDiv'>
-                        <button className='submitButton' type='submit'>
+                    <div className="submitDiv">
+                        <button className="submitButton" type="submit">
                             {isLogin ? 'Login' : 'Signup'}
                         </button>
                     </div>

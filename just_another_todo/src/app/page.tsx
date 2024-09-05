@@ -12,14 +12,16 @@ export default function Home() {
     const handleCloseModal = () => setIsLoginModalOpen(false);
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24 welcome-page">
-            <div className="logo-container">
-                <Image
-                    src="/Just Another Todo_transparent-.png"
-                    alt="Just Another Todo App Logo"
-                    width={150}
-                    height={150}
-                    className="logo-image"
-                />
+            <div className="nav-container">
+                <div className="logo-container">
+                    <Image
+                        src="/Just Another Todo_transparent-.png"
+                        alt="Just Another Todo App Logo"
+                        width={150}
+                        height={150}
+                        className="logo-image"
+                    />
+                </div>
             </div>
             <h1 className="text-4xl font-bold text-center welcome-page-title">
                 Welcome to Just Another Todo App

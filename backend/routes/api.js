@@ -15,7 +15,7 @@ const userCtrl = require('../controllers/users');
 router.post('/register', authentiacationCtrl.register);
 router.post('/login', authentiacationCtrl.login);
 
-// todo routes
+// to-do routes
 router.get('/todo', auth, todoCtrl.getTodoItems);
 router.get('/todo/:todoItemId', auth, todoCtrl.getTodoItem);
 router.post('/todo', auth, todoCtrl.createTodoItem);

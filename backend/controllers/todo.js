@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const TodoItem = mongoose.model('TodoItem');
 
-// get all todo items by user
+// get all to-do items by user
 const getTodoItems = async (req, res) => {
     if (!req.user) {
         return res.status(401).json({message: 'Unauthorized'});
@@ -15,7 +15,7 @@ const getTodoItems = async (req, res) => {
     }
 };
 
-// get todo item by id
+// get to-do item by id
 const getTodoItem = async (req, res) => {
     if (!req.params.todoItemId) {
         return res.status(400).json({message: 'Todo item ID is required'});
@@ -32,7 +32,7 @@ const getTodoItem = async (req, res) => {
     }
 };
 
-// create a new todo item
+// create a new to-do item
 const createTodoItem = async (req, res) => {
     if (!req.body.title) {
         return res.status(400).json({message: 'Title is required'});
@@ -61,7 +61,7 @@ const createTodoItem = async (req, res) => {
     }
 };
 
-// update a todo item
+// update a to-do item
 const updateTodoItem = async (req, res) => {
     if (!req.params.todoItemId) {
         return res.status(400).json({message: 'Todo item ID is required'});
@@ -97,7 +97,7 @@ const updateTodoItem = async (req, res) => {
     }
 };
 
-// delete a todo item
+// delete a to-do item
 const deleteTodoItem = async (req, res) => {
     if (!req.params.todoItemId) {
         return res.status(400).json({message: 'Todo item ID is required'});
