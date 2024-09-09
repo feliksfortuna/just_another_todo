@@ -2,19 +2,23 @@ import { useState, useEffect, useRef } from 'react';
 import './style.css';
 import axios from 'axios';
 import config from '../../config';
+import { init } from 'next/dist/compiled/webpack/webpack';
+import { log } from 'console';
 
 type LoginModalProps = {
     isOpen: boolean;
     onClose: () => void;
+    onLoginSuccess: () => void;
+    isLogin: boolean;
 };
 
-const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
+const LoginModal = ({ isOpen, onClose, onLoginSuccess, isLogin }: LoginModalProps) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
-    const [isLogin, setIsLogin] = useState(false);
+    const [loginMode, setIsLogin] = useState(isLogin);
     const [windowWidth, setWindowWidth] = useState(0);
     const [error, setError] = useState('');
     const modalRef = useRef<HTMLDivElement>(null);
@@ -38,11 +42,12 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
         };
 
         document.addEventListener('mousedown', handleClickOutside);
-        setIsLogin(false);
+        setIsLogin(isLogin);
+        resetForm();
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [onClose]);
+    }, [onClose, isLogin]);
 
     const resetForm = () => {
         setEmail('');
@@ -86,7 +91,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        if (!isLogin && password !== confirmPassword) {
+        if (!loginMode && password !== confirmPassword) {
             setError('Passwords do not match');
             return;
         }
@@ -97,10 +102,14 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
         }
 
         try {
-            if (isLogin) {
+            if (loginMode) {
                 await login(email, password);
+                onLoginSuccess();
+                resetForm();
             } else {
                 await register(email, password, name, surname);
+                onLoginSuccess();
+                resetForm();
             }
             onClose();
         } catch (error: any) {
@@ -142,7 +151,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                             resetForm();
                         }
                     }}
-                    className={`loginButton ${isLogin ? 'active' : ''}`}
+                    className={`loginButton ${loginMode ? 'active' : ''}`}
                     type="button"
                 >
                     Login
@@ -164,7 +173,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                             resetForm();
                         }
                     }}
-                    className={`signupButton ${!isLogin ? 'active' : ''}`}
+                    className={`signupButton ${!loginMode ? 'active' : ''}`}
                     type="button"
                 >
                     Signup
@@ -172,7 +181,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
             </div>
 
             <form onSubmit={handleSubmit}>
-                {!isLogin && (
+                {!loginMode && (
                     <div className="name">
                         <input
                             id="name"
@@ -183,7 +192,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                         />
                     </div>
                 )}
-                {!isLogin && (
+                {!loginMode && (
                     <div className="surname">
                         <input
                             id="surname"
@@ -212,7 +221,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                {!isLogin && (
+                {!loginMode && (
                     <div className="confirmPassword">
                         <input
                             id="confirmPassword"
@@ -225,7 +234,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                 )}
                 {error && <div className="error">{error}</div>}
                 <div className="submitForgotContainer">
-                    {isLogin && (
+                    {loginMode && (
                         <div className="forgotPassword">
                             <a className="forgotPasswordLink" href="#">
                                 Forgot password?
@@ -234,7 +243,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                     )}
                     <div className="submitDiv">
                         <button className="submitButton" type="submit">
-                            {isLogin ? 'Login' : 'Signup'}
+                            {loginMode ? 'Login' : 'Signup'}
                         </button>
                     </div>
                 </div>

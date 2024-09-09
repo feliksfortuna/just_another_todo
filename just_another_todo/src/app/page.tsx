@@ -50,6 +50,8 @@ export default function Home() {
                 <LoginModal
                     isOpen={isLoginModalOpen}
                     onClose={handleCloseModal}
+                    onLoginSuccess={() => {}}
+                    isLogin={false}
                 />
             </div>
         </main>
